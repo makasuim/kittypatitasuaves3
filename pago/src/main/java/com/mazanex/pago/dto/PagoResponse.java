@@ -13,6 +13,10 @@ public class PagoResponse {
     private String motivo;
     private LocalDateTime fechaHora;
     private List<PagoItemRequest> items;
+    private String nombreComprador;
+    private String emailComprador;
+    private String telefonoComprador;
+    private String direccionComprador;
 
     public PagoResponse() {}
 
@@ -78,5 +82,37 @@ public class PagoResponse {
 
     public void setItems(List<PagoItemRequest> items) {
         this.items = items;
+    }
+
+    public String getNombreComprador() {
+        return nombreComprador;
+    }
+
+    public void setNombreComprador(String nombreComprador) {
+        this.nombreComprador = nombreComprador;
+    }
+
+    public String getEmailComprador() {
+        return emailComprador;
+    }
+
+    public void setEmailComprador(String emailComprador) {
+        this.emailComprador = emailComprador;
+    }
+
+    public String getTelefonoComprador() {
+        return telefonoComprador;
+    }
+
+    public void setTelefonoComprador(String telefonoComprador) {
+        this.telefonoComprador = telefonoComprador;
+    }
+
+    public String getDireccionComprador() {
+        return direccionComprador;
+    }
+
+    public void setDireccionComprador(String direccionComprador) {
+        this.direccionComprador = direccionComprador;
     }
 }

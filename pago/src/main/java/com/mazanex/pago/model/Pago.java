@@ -14,20 +14,30 @@ public class Pago {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // totales
     private double subtotal;
     private double descuento;
     private double total;
 
-    // estado: EXITOSO o RECHAZADO
     @Column(length = 20, nullable = false)
     private String estado;
 
-    // mensaje de error / razón rechazo (opcional)
     @Column(length = 255)
     private String motivo;
 
     private LocalDateTime fechaHora;
+
+    // 🔹 NUEVOS CAMPOS COMPRADOR
+    @Column(name = "nombre_comprador", length = 100)
+    private String nombreComprador;
+
+    @Column(name = "email_comprador", length = 150)
+    private String emailComprador;
+
+    @Column(name = "telefono_comprador", length = 30)
+    private String telefonoComprador;
+
+    @Column(name = "direccion_comprador", length = 255)
+    private String direccionComprador;
 
     @OneToMany(mappedBy = "pago", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PagoItem> items = new ArrayList<>();
@@ -92,6 +102,38 @@ public class Pago {
 
     public void setFechaHora(LocalDateTime fechaHora) {
         this.fechaHora = fechaHora;
+    }
+
+    public String getNombreComprador() {
+        return nombreComprador;
+    }
+
+    public void setNombreComprador(String nombreComprador) {
+        this.nombreComprador = nombreComprador;
+    }
+
+    public String getEmailComprador() {
+        return emailComprador;
+    }
+
+    public void setEmailComprador(String emailComprador) {
+        this.emailComprador = emailComprador;
+    }
+
+    public String getTelefonoComprador() {
+        return telefonoComprador;
+    }
+
+    public void setTelefonoComprador(String telefonoComprador) {
+        this.telefonoComprador = telefonoComprador;
+    }
+
+    public String getDireccionComprador() {
+        return direccionComprador;
+    }
+
+    public void setDireccionComprador(String direccionComprador) {
+        this.direccionComprador = direccionComprador;
     }
 
     public List<PagoItem> getItems() {

@@ -20,28 +20,32 @@ public class PagoService {
     }
 
     public Pago crearPago(CrearPagoRequest req) {
-        Pago pago = new Pago();
-        pago.setSubtotal(req.getSubtotal());
-        pago.setDescuento(req.getDescuento());
-        pago.setTotal(req.getTotal());
-        pago.setEstado(req.getEstado() != null ? req.getEstado() : "EXITOSO");
-        pago.setMotivo(req.getMotivo());
+    Pago pago = new Pago();
+    pago.setSubtotal(req.getSubtotal());
+    pago.setDescuento(req.getDescuento());
+    pago.setTotal(req.getTotal());
+    pago.setEstado(req.getEstado() != null ? req.getEstado() : "EXITOSO");
+    pago.setMotivo(req.getMotivo());
+    pago.setNombreComprador(req.getNombreComprador());
+    pago.setEmailComprador(req.getEmailComprador());
+    pago.setTelefonoComprador(req.getTelefonoComprador());
+    pago.setDireccionComprador(req.getDireccionComprador());
 
-        if (req.getItems() != null) {
-            for (PagoItemRequest itemReq : req.getItems()) {
-                PagoItem item = new PagoItem();
-                item.setProductoId(itemReq.getProductoId());
-                item.setNombre(itemReq.getNombre());
-                item.setPrecioUnitario(itemReq.getPrecio());
-                item.setCantidad(itemReq.getCantidad());
-                item.setImagen(itemReq.getImagen());
-                item.setPago(pago);
-                pago.getItems().add(item);
-            }
+    if (req.getItems() != null) {
+        for (PagoItemRequest itemReq : req.getItems()) {
+            PagoItem item = new PagoItem();
+            item.setProductoId(itemReq.getProductoId());
+            item.setNombre(itemReq.getNombre());
+            item.setPrecioUnitario(itemReq.getPrecio());
+            item.setCantidad(itemReq.getCantidad());
+            item.setImagen(itemReq.getImagen());
+            item.setPago(pago);
+            pago.getItems().add(item);
         }
-
-        return pagoRepository.save(pago);
     }
+
+    return pagoRepository.save(pago);
+}
 
     public Optional<Pago> obtenerPorId(Long id) {
         return pagoRepository.findById(id);

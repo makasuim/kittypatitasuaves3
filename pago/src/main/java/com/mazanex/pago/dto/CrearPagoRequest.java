@@ -7,9 +7,13 @@ public class CrearPagoRequest {
     private double subtotal;
     private double descuento;
     private double total;
-    private String estado;   // "EXITOSO" o "RECHAZADO"
-    private String motivo;   // opcional
+    private String estado;
+    private String motivo;
     private List<PagoItemRequest> items;
+    private String nombreComprador;
+    private String emailComprador;
+    private String telefonoComprador;
+    private String direccionComprador;
 
     public CrearPagoRequest() {}
 
@@ -59,5 +63,37 @@ public class CrearPagoRequest {
 
     public void setItems(List<PagoItemRequest> items) {
         this.items = items;
+    }
+
+    public String getNombreComprador() {
+        return nombreComprador;
+    }
+
+    public void setNombreComprador(String nombreComprador) {
+        this.nombreComprador = nombreComprador;
+    }
+
+    public String getEmailComprador() {
+        return emailComprador;
+    }
+
+    public void setEmailComprador(String emailComprador) {
+        this.emailComprador = emailComprador;
+    }
+
+    public String getTelefonoComprador() {
+        return telefonoComprador;
+    }
+
+    public void setTelefonoComprador(String telefonoComprador) {
+        this.telefonoComprador = telefonoComprador;
+    }
+
+    public String getDireccionComprador() {
+        return direccionComprador;
+    }
+
+    public void setDireccionComprador(String direccionComprador) {
+        this.direccionComprador = direccionComprador;
     }
 }

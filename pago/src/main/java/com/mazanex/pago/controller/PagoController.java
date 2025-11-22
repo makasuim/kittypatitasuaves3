@@ -46,28 +46,31 @@ public class PagoController {
         return ResponseEntity.ok(lista);
     }
 
-    // ---------- mapper interno ----------
     private PagoResponse toResponse(Pago p) {
-        PagoResponse resp = new PagoResponse();
-        resp.setId(p.getId());
-        resp.setSubtotal(p.getSubtotal());
-        resp.setDescuento(p.getDescuento());
-        resp.setTotal(p.getTotal());
-        resp.setEstado(p.getEstado());
-        resp.setMotivo(p.getMotivo());
-        resp.setFechaHora(p.getFechaHora());
+    PagoResponse resp = new PagoResponse();
+    resp.setId(p.getId());
+    resp.setSubtotal(p.getSubtotal());
+    resp.setDescuento(p.getDescuento());
+    resp.setTotal(p.getTotal());
+    resp.setEstado(p.getEstado());
+    resp.setMotivo(p.getMotivo());
+    resp.setFechaHora(p.getFechaHora());
+    resp.setNombreComprador(p.getNombreComprador());
+    resp.setEmailComprador(p.getEmailComprador());
+    resp.setTelefonoComprador(p.getTelefonoComprador());
+    resp.setDireccionComprador(p.getDireccionComprador());
 
-        List<PagoItemRequest> items = p.getItems().stream().map(it -> {
-            PagoItemRequest dto = new PagoItemRequest();
-            dto.setProductoId(it.getProductoId());
-            dto.setNombre(it.getNombre());
-            dto.setPrecio(it.getPrecioUnitario());
-            dto.setCantidad(it.getCantidad());
-            dto.setImagen(it.getImagen());
-            return dto;
-        }).collect(Collectors.toList());
+    List<PagoItemRequest> items = p.getItems().stream().map(it -> {
+        PagoItemRequest dto = new PagoItemRequest();
+        dto.setProductoId(it.getProductoId());
+        dto.setNombre(it.getNombre());
+        dto.setPrecio(it.getPrecioUnitario());
+        dto.setCantidad(it.getCantidad());
+        dto.setImagen(it.getImagen());
+        return dto;
+    }).collect(Collectors.toList());
 
-        resp.setItems(items);
-        return resp;
-    }
+    resp.setItems(items);
+    return resp;
+}
 }
