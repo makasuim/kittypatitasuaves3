@@ -44,4 +44,10 @@ public class InventarioController {
         Producto guardado = inventarioService.agregarProducto(nuevo);
         return ResponseEntity.ok(ProductoMapper.toDTO(guardado));
     }
+
+    @DeleteMapping("/productos/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable Long id) {
+    inventarioService.eliminarProducto(id);
+    return ResponseEntity.noContent().build();
+    }
 }
