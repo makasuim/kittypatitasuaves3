@@ -3,28 +3,34 @@ package com.mazanex.pago.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "pago_items")
+@Table(name = "detalles_pago")   // 👈 nombre REAL de la tabla en Supabase
 public class PagoItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // id del producto en el microservicio inventario
+    // id del producto en inventario
+    @Column(name = "producto_id")
     private Long productoId;
 
+    @Column(name = "nombre")
     private String nombre;
+
+    @Column(name = "precio_unitario")
     private double precioUnitario;
+
+    @Column(name = "cantidad")
     private int cantidad;
+
+    @Column(name = "imagen")
     private String imagen;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "pago_id")
+    @JoinColumn(name = "pago_id") // FK a la tabla pagos
     private Pago pago;
 
     public PagoItem() {}
-
-    // GETTERS & SETTERS
 
     public Long getId() {
         return id;
