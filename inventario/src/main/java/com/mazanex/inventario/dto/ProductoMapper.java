@@ -5,13 +5,17 @@ import com.mazanex.inventario.model.Producto;
 public class ProductoMapper {
 
     public static ProductoDTO toDTO(Producto p) {
-        ProductoDTO dto = new ProductoDTO();
-        dto.setId(p.getId());
-        dto.setNombre(p.getNombre());
-        dto.setStock(p.getStock());   // si tu ProductoDTO aún tiene "cantidad", pon setCantidad
-        dto.setPrecio(p.getPrecio());
-        return dto;
+    ProductoDTO dto = new ProductoDTO();
+    dto.setId(p.getId());
+    dto.setNombre(p.getNombre());
+    dto.setDescripcion(p.getDescripcion());
+    dto.setStock(p.getStock());
+    dto.setPrecio(p.getPrecio());
+    dto.setCategoria(p.getCategoria());
+    dto.setImagen(p.getImagen());
+    return dto;
     }
+
 
     public static Producto toEntity(CrearProductoRequest req) {
         Producto p = new Producto();

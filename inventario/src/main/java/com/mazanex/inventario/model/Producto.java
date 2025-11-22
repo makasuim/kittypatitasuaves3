@@ -17,7 +17,7 @@ public class Producto {
     private String descripcion;
 
     @Column(nullable = false)
-    private int stock;   // antes era cantidad
+    private int stock;   
 
     @Column(nullable = false)
     private double precio;
@@ -30,8 +30,6 @@ public class Producto {
 
     public Producto() {
     }
-
-    // ------------ GETTERS & SETTERS ------------
 
     public Long getId() {
         return id;
