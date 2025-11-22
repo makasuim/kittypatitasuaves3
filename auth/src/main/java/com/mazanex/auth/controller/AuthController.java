@@ -28,6 +28,7 @@ public class AuthController {
                     "El correo ya está registrado",
                     null,
                     null,
+                    null,
                     null
             );
             return ResponseEntity.status(HttpStatus.CONFLICT).body(resp);
@@ -38,7 +39,8 @@ public class AuthController {
                 "Usuario registrado correctamente",
                 nuevo.getId(),
                 nuevo.getNombreCompleto(),
-                nuevo.getCorreoElectronico()
+                nuevo.getCorreoElectronico(),
+                authService.mapMascotasToDTO(nuevo)
         );
 
         return ResponseEntity.status(HttpStatus.CREATED).body(resp);
@@ -55,6 +57,7 @@ public class AuthController {
                     "Credenciales incorrectas",
                     null,
                     null,
+                    null,
                     null
             );
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(resp);
@@ -65,7 +68,8 @@ public class AuthController {
                 "Inicio de sesión exitoso",
                 usuario.getId(),
                 usuario.getNombreCompleto(),
-                usuario.getCorreoElectronico()
+                usuario.getCorreoElectronico(),
+                authService.mapMascotasToDTO(usuario)
         );
 
         return ResponseEntity.ok(resp);

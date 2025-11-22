@@ -1,21 +1,31 @@
 package com.mazanex.auth.dto;
 
+import java.util.List;
+
 public class AuthResponse {
 
     private boolean exito;
     private String mensaje;
     private Long usuarioId;
-    private String nombre;
-    private String email;
+    private String nombreCompleto;
+    private String correoElectronico;
+    private List<MascotaDTO> mascotas;
 
-    public AuthResponse() {}
+    public AuthResponse() {
+    }
 
-    public AuthResponse(boolean exito, String mensaje, Long usuarioId, String nombre, String email) {
+    public AuthResponse(boolean exito,
+                        String mensaje,
+                        Long usuarioId,
+                        String nombreCompleto,
+                        String correoElectronico,
+                        List<MascotaDTO> mascotas) {
         this.exito = exito;
         this.mensaje = mensaje;
         this.usuarioId = usuarioId;
-        this.nombre = nombre;
-        this.email = email;
+        this.nombreCompleto = nombreCompleto;
+        this.correoElectronico = correoElectronico;
+        this.mascotas = mascotas;
     }
 
     public boolean isExito() {
@@ -42,19 +52,27 @@ public class AuthResponse {
         this.usuarioId = usuarioId;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreCompleto() {
+        return nombreCompleto;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
     }
 
-    public String getEmail() {
-        return email;
+    public String getCorreoElectronico() {
+        return correoElectronico;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    public List<MascotaDTO> getMascotas() {
+        return mascotas;
+    }
+
+    public void setMascotas(List<MascotaDTO> mascotas) {
+        this.mascotas = mascotas;
     }
 }

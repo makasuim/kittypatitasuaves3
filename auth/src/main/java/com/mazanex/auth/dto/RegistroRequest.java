@@ -1,5 +1,7 @@
 package com.mazanex.auth.dto;
 
+import java.util.List;
+
 public class RegistroRequest {
 
     private String nombreCompleto;
@@ -8,6 +10,7 @@ public class RegistroRequest {
     private String telefono;
     private String region;
     private String comuna;
+    private List<MascotaDTO> mascotas;
 
     public RegistroRequest() {}
 
@@ -57,5 +60,13 @@ public class RegistroRequest {
 
     public void setComuna(String comuna) {
         this.comuna = comuna;
+    }
+
+    public List<MascotaDTO> getMascotas() {
+        return mascotas;
+    }
+
+    public void setMascotas(List<MascotaDTO> mascotas) {
+        this.mascotas = mascotas;
     }
 }

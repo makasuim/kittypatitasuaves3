@@ -2,6 +2,9 @@ package com.mazanex.auth.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
@@ -22,6 +25,9 @@ public class Usuario {
     private String telefono;
     private String region;
     private String comuna;
+
+    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Mascota> mascotas = new ArrayList<>();
 
     public Usuario() {}
 
@@ -79,5 +85,13 @@ public class Usuario {
 
     public void setComuna(String comuna) {
         this.comuna = comuna;
+    }
+
+    public List<Mascota> getMascotas() {
+        return mascotas;
+    }
+
+    public void setMascotas(List<Mascota> mascotas) {
+        this.mascotas = mascotas;
     }
 }
