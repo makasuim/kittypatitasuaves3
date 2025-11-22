@@ -13,17 +13,22 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 50)
+    @Column(name = "nombre_completo", nullable = false, length = 50)
     private String nombreCompleto;
 
-    @Column(unique = true, nullable = false, length = 100)
+    @Column(name = "correo_electronico", unique = true, nullable = false, length = 100)
     private String correoElectronico;
 
-    @Column(nullable = false)
+    @Column(name = "contrasena", nullable = false)
     private String contrasena;
 
+    @Column(name = "telefono")
     private String telefono;
+
+    @Column(name = "region")
     private String region;
+
+    @Column(name = "comuna")
     private String comuna;
 
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
