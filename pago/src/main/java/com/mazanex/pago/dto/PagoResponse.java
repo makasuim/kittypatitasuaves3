@@ -10,7 +10,6 @@ public class PagoResponse {
     private double descuento;
     private double total;
     private String estado;
-    private String motivo;
     private LocalDateTime fechaHora;
     private List<PagoItemRequest> items;
     private String nombreComprador;
@@ -58,14 +57,6 @@ public class PagoResponse {
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    public String getMotivo() {
-        return motivo;
-    }
-
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
     }
 
     public LocalDateTime getFechaHora() {

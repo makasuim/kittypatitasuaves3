@@ -8,7 +8,6 @@ public class CrearPagoRequest {
     private double descuento;
     private double total;
     private String estado;
-    private String motivo;
     private List<PagoItemRequest> items;
     private String nombreComprador;
     private String emailComprador;
@@ -47,14 +46,6 @@ public class CrearPagoRequest {
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    public String getMotivo() {
-        return motivo;
-    }
-
-    public void setMotivo(String motivo) {
-        this.motivo = motivo;
     }
 
     public List<PagoItemRequest> getItems() {

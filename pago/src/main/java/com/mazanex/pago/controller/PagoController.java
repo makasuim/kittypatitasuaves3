@@ -53,7 +53,6 @@ public class PagoController {
     resp.setDescuento(p.getDescuento());
     resp.setTotal(p.getTotal());
     resp.setEstado(p.getEstado());
-    resp.setMotivo(p.getMotivo());
     resp.setFechaHora(p.getFechaHora());
     resp.setNombreComprador(p.getNombreComprador());
     resp.setEmailComprador(p.getEmailComprador());

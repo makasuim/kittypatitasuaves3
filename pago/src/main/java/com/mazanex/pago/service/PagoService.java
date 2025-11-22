@@ -25,7 +25,6 @@ public class PagoService {
     pago.setDescuento(req.getDescuento());
     pago.setTotal(req.getTotal());
     pago.setEstado(req.getEstado() != null ? req.getEstado() : "EXITOSO");
-    pago.setMotivo(req.getMotivo());
     pago.setNombreComprador(req.getNombreComprador());
     pago.setEmailComprador(req.getEmailComprador());
     pago.setTelefonoComprador(req.getTelefonoComprador());
