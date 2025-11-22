@@ -3,7 +3,7 @@ package com.mazanex.pago.model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "detalles_pago")   // 👈 nombre REAL de la tabla en Supabase
+@Table(name = "detalles_pago")   
 public class PagoItem {
 
     @Id

@@ -1,7 +1,11 @@
 package com.mazanex.inventario.service;
 
+import com.mazanex.inventario.dto.AjusteStockRequest;
 import com.mazanex.inventario.model.Producto;
 import com.mazanex.inventario.repository.ProductoRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -72,5 +76,20 @@ public class InventarioService {
             productoRepository.save(producto);
             return true;
         }).orElse(false);
+    }
+
+    @Transactional
+    public void ajustarStock(List<AjusteStockRequest> ajustes) {
+    for (AjusteStockRequest a : ajustes) {
+        Producto p = productoRepository.findById(a.getProductoId())
+                .orElseThrow(() -> new RuntimeException("Producto no encontrado: " + a.getProductoId()));
+
+        int nuevoStock = p.getStock() - a.getCantidad();
+        if (nuevoStock < 0) {
+            throw new RuntimeException("Stock insuficiente para producto " + p.getId());
+        }
+        p.setStock(nuevoStock);
+        productoRepository.save(p);
+    }
     }
 }

@@ -1,5 +1,6 @@
 package com.mazanex.inventario.controller;
 
+import com.mazanex.inventario.dto.AjusteStockRequest;
 import com.mazanex.inventario.dto.CrearProductoRequest;
 import com.mazanex.inventario.dto.ProductoDTO;
 import com.mazanex.inventario.dto.ProductoMapper;
@@ -49,5 +50,11 @@ public class InventarioController {
     public ResponseEntity<Void> eliminar(@PathVariable Long id) {
     inventarioService.eliminarProducto(id);
     return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/ajustar-stock")
+    public ResponseEntity<Void> ajustarStock(@RequestBody List<AjusteStockRequest> ajustes) {
+    inventarioService.ajustarStock(ajustes);
+    return ResponseEntity.ok().build();
     }
 }
