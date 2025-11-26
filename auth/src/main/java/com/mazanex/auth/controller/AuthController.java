@@ -23,7 +23,7 @@ public class AuthController {
     private AuthService authService;
 
     @Autowired
-    private JwtUtil jwtUtil; // <-- FALTABA ESTO
+    private JwtUtil jwtUtil;
 
     @PostMapping("/registro")
     public ResponseEntity<AuthResponse> registrar(@RequestBody RegistroRequest request) {
@@ -31,27 +31,30 @@ public class AuthController {
         Usuario nuevo = authService.registrar(request);
 
         if (nuevo == null) {
-            AuthResponse resp = new AuthResponse(
-                    false,
-                    "El correo ya está registrado",
-                    null,
-                    null,
-                    null,
-                    null
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                    new AuthResponse(
+                            false,
+                            "El correo ya está registrado",
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                    )
             );
-            return ResponseEntity.status(HttpStatus.CONFLICT).body(resp);
         }
 
-        AuthResponse resp = new AuthResponse(
-                true,
-                "Usuario registrado correctamente",
-                nuevo.getId(),
-                nuevo.getNombreCompleto(),
-                nuevo.getCorreoElectronico(),
-                authService.mapMascotasToDTO(nuevo)
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                new AuthResponse(
+                        true,
+                        "Usuario registrado correctamente",
+                        nuevo.getId(),
+                        nuevo.getNombreCompleto(),
+                        nuevo.getCorreoElectronico(),
+                        authService.mapMascotasToDTO(nuevo),
+                        null
+                )
         );
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(resp);
     }
 
     @PostMapping("/login")
@@ -60,39 +63,44 @@ public class AuthController {
         Usuario usuario = authService.login(request);
 
         if (usuario == null) {
-            AuthResponse resp = new AuthResponse(
-                    false,
-                    "Credenciales incorrectas",
-                    null,
-                    null,
-                    null,
-                    null
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                    new AuthResponse(
+                            false,
+                            "Credenciales incorrectas",
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                    )
             );
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(resp);
         }
 
-        AuthResponse resp = new AuthResponse(
-                true,
-                "Inicio de sesión exitoso",
-                usuario.getId(),
-                usuario.getNombreCompleto(),
-                usuario.getCorreoElectronico(),
-                authService.mapMascotasToDTO(usuario)
-        );
+        // 🔥 GENERAR TOKEN
+        String token = jwtUtil.generarToken(usuario.getId(), usuario.getCorreoElectronico());
 
-        return ResponseEntity.ok(resp);
+        return ResponseEntity.ok(
+                new AuthResponse(
+                        true,
+                        "Inicio de sesión exitoso",
+                        usuario.getId(),
+                        usuario.getNombreCompleto(),
+                        usuario.getCorreoElectronico(),
+                        authService.mapMascotasToDTO(usuario),
+                        token  // ← ← ← 🔥 AHORA SÍ SE ENVÍA EL TOKEN
+                )
+        );
     }
 
     @PostMapping("/validate")
     public ResponseEntity<?> validarToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
-        try {
-            String jwt = token.replace("Bearer ", "");
-            Claims claims = jwtUtil.validarToken(jwt);
-
-            return ResponseEntity.ok(claims);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido");
-        }
+    try {
+        String jwt = token.replace("Bearer ", "");
+        Claims claims = jwtUtil.validarToken(jwt);
+        return ResponseEntity.ok(claims);
+    } catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido");
     }
+}
 
 }
