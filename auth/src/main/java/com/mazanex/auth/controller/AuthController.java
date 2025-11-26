@@ -4,8 +4,13 @@ import com.mazanex.auth.dto.AuthResponse;
 import com.mazanex.auth.dto.LoginRequest;
 import com.mazanex.auth.dto.RegistroRequest;
 import com.mazanex.auth.model.Usuario;
+import com.mazanex.auth.security.JwtUtil;
 import com.mazanex.auth.service.AuthService;
+
+import io.jsonwebtoken.Claims;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +21,9 @@ public class AuthController {
 
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private JwtUtil jwtUtil; // <-- FALTABA ESTO
 
     @PostMapping("/registro")
     public ResponseEntity<AuthResponse> registrar(@RequestBody RegistroRequest request) {
@@ -74,4 +82,19 @@ public class AuthController {
 
         return ResponseEntity.ok(resp);
     }
+
+    @PostMapping("/validate")
+    public ResponseEntity<?> validarToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
+        try {
+            String jwt = token.replace("Bearer ", "");
+
+            // CORREGIDO: ahora llama correctamente al método de instancia
+            Claims claims = jwtUtil.validarToken(jwt);
+
+            return ResponseEntity.ok(claims);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token inválido");
+        }
+    }
+
 }
