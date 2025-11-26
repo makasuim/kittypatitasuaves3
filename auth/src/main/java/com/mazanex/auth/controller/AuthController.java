@@ -87,8 +87,6 @@ public class AuthController {
     public ResponseEntity<?> validarToken(@RequestHeader(HttpHeaders.AUTHORIZATION) String token) {
         try {
             String jwt = token.replace("Bearer ", "");
-
-            // CORREGIDO: ahora llama correctamente al método de instancia
             Claims claims = jwtUtil.validarToken(jwt);
 
             return ResponseEntity.ok(claims);
